@@ -8,3 +8,14 @@ Can compress a json structure into a small human readable and ansi-colored strin
 - Properties with child objects are high-lighted
 
 ![image](https://user-images.githubusercontent.com/160805/110027289-72a62b80-7d3a-11eb-83db-ca44d9268033.png)
+
+#### Usage
+
+`npm install shrink-json`
+
+```typescript
+import { log } from 'shrink-json'
+const jsonLog = log({...options})
+[...]
+jsonLog(myObj)
+```
