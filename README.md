@@ -15,7 +15,8 @@ Can compress a json structure into a small human readable and ansi-colored strin
 
 ```typescript
 import { log } from 'shrink-json'
-const jsonLog = log({...options})
+const shrunkJson = log({...options})
+
 [...]
-jsonLog(myObj)
+cosole.log(shrunkJson(myObj))
 ```
