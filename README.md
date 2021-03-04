@@ -18,5 +18,5 @@ import { log } from 'shrink-json'
 const shrunkJson = log({...options})
 
 [...]
-cosole.log(shrunkJson(myObj))
+console.log(shrunkJson(myObj))
 ```
