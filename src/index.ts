@@ -25,7 +25,7 @@ const asArray = (depth: number, options: Options) => (arr: JsonArray): string =>
       map(logJson(0, options)),
       join(darkGray(','))
       )(arr)
-      : `${logJson(depth, options)(head(arr)!)}` + darkGray(`, ...${arr.length - 1} items`)
+      : `${logJson(depth, options)(head(arr)!)}` + (arr.length > 1 ? darkGray(`, ...${arr.length - 1} items`) : '')
   }${yellow(']')}`
 
 
@@ -74,7 +74,23 @@ export interface Options {
   datetimeFormat: string
 }
 
+const getCircularReplacer = () => {
+  const seen = new WeakSet()
+  // eslint-disable-next-line
+  return (_key: any, value: any) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return
+      }
+      seen.add(value)
+    }
+    return value
+  }
+}
+
+const cleanUp = (obj: unknown) => JSON.parse(JSON.stringify(obj, getCircularReplacer()))
+
 export const log = (options: Options = {
   datetimeFormat: 'dd.MM.yy HH:mm',
   dateFormat: 'dd.MM.yy'
-}) => (json: Json): string => logJson(0, options)(json)
+}) => (json: Json): string => logJson(0, options)(cleanUp(json))
