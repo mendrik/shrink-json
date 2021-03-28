@@ -7,7 +7,7 @@ type JsonObject = { [key: string]: JsonScalar | JsonObject | JsonArray; }
 type JsonArray = Array<Json>
 type Json = JsonScalar | JsonObject | JsonArray
 
-const isoDatePattern = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/);
+const isoDatePattern = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/)
 
 const isShortArray = (arr: JsonArray): boolean => JSON.stringify(arr).length < 80
 const isShortObj = (obj: JsonObject): boolean => JSON.stringify(obj).length < 25
@@ -53,8 +53,8 @@ export const logJson = (depth: number = 0, options: Options) => (json: Json): st
     const str = /^\d{4}-\d{2}-\d{2}$/.test(json) ? json + 'T00:00:00' : json
     try {
       const date = new Date(str)
-      return date.getMinutes() === 0 && date.getSeconds() === 0 && date.getHours() === 0
-        ? lightGreen(format(date, options.dateFormat)) : lightGreen(format(date, options.datetimeFormat))
+      return (date.getMinutes() === 0 && date.getSeconds() === 0 && date.getHours() === 0
+        ? lightGreen(format(date, options.dateFormat)) : lightGreen(format(date, options.datetimeFormat))) + ' ' + darkGray(str)
     } catch (e) {
       return lightGreen(json)
     }
