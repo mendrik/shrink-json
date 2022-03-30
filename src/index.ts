@@ -9,7 +9,7 @@ type Json = JsonScalar | JsonObject | JsonArray
 
 const isoDatePattern = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/)
 
-const isShortArray = (arr: JsonArray): boolean => JSON.stringify(arr).length < 80
+const isShortArray = (arr: JsonArray): boolean => arr.length <= 3 || JSON.stringify(arr).length < 80
 const isShortObj = (obj: JsonObject): boolean => JSON.stringify(obj).length < 25
 const isString = (str: JsonScalar): str is string => typeof str === 'string'
 const isDate = (str: JsonScalar): str is string => typeof str === 'string' && (/(\d{2}|\d{4}).\d{2}.(\d{2}|\d{4})/.test(str) || isoDatePattern.test(str))
@@ -22,10 +22,10 @@ const asArray = (depth: number, options: Options) => (arr: JsonArray): string =>
   `${yellow('[')}${
     isShortArray(arr)
       ? pipe(
-      map(logJson(0, options)),
-      join(darkGray(','))
-      )(arr)
-      : `${logJson(depth, options)(head(arr)!)}` + (arr.length > 1 ? darkGray(`, ...${arr.length - 1} items`) : '')
+          map(logJson(0, options)),
+          join(darkGray(','))
+        )(arr)
+      : logJson(depth, options)(head(arr)!) + (arr.length > 1 ? darkGray(`, ...${arr.length - 1} items`) : '')
   }${yellow(']')}`
 
 
