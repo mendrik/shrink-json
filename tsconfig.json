@@ -5,10 +5,11 @@
     "types"
   ],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ESNext",
     "lib": [
-      "dom",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ],
     "importHelpers": true,
     // output .d.ts declaration files for consumers

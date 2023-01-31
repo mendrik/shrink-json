@@ -1,6 +1,6 @@
-import { blue, darkGray, green, lightGreen, lightMagenta, lightYellow, magenta, yellow } from 'ansicolor'
-import { format } from 'date-fns'
-import { head, join, map, pipe, toPairs } from 'ramda'
+import {blue, darkGray, green, lightGreen, lightMagenta, lightYellow, magenta, yellow} from 'ansicolor'
+import {format} from 'date-fns'
+import {head, join, map, pipe, toPairs} from 'ramda'
 
 type JsonScalar = number | string | boolean | null
 type JsonObject = { [key: string]: JsonScalar | JsonObject | JsonArray; }
